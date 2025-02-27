@@ -4,17 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Section</title>
+   <style> 
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Back to Home Link */
+a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1d70a2;
+}
+
+/* Header */
+h1 {
+    font-size: 2.5rem;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* Blog Post Container */
+.blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Blog Post Styling */
+.blog-post {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Blog Image */
+.blog-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* Blog Content */
+.blog-content {
+    flex: 1;
+}
+
+.blog-content h2 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.blog-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.blog-content code {
+    font-size: 0.9rem;
+    color: #888;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .blog-container {
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .blog-post {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .blog-image {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    .blog-content h2 {
+        font-size: 1.5rem;
+    }
+}
+
+   </style>
 </head>
 <body>
-    <h1>Blog Section</h1>
-{% for post in posts %}
-<a href="{% url "post_detail" post.pk %}">
-    <h2>{{ post.title }}</h2>
-</a>
-    <p>{{ post.content|truncatewords:50 }}</p>
-    <code>Posted at: {{ post.created_at }}</code>
 
-<hr>
-{% endfor %}
+    <!-- Back to Home -->
+    <a href="/">Go Back</a>
+    
+    <h1>Blog Section</h1>
+
+    <div class="blog-container">
+        {% for post in posts %}
+        <div class="blog-post">
+            <!-- Blog Image -->
+            <img src="{{ post.blog_image.url }}" alt="Blog Image" class="blog-image">
+            
+            <div class="blog-content">
+                <a href="{% url 'post_detail' post.pk %}">
+                    <h2>{{ post.title }}</h2>
+                </a>
+                <p>{{ post.content|truncatewords:50 }}</p>
+                <code>Posted at: {{ post.created_at }}</code>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </body>
 </html>
